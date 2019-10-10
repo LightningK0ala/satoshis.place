@@ -1,0 +1,38 @@
+{
+  "name": "satoshis-place-api",
+  "version": "0.1.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "dev": "nodemon --exec 'node .'",
+    "start": "node .",
+    "alias": "now alias",
+    "alias:testnet": "now alias --local-config ./now.testnet.json",
+    "deploy": "now",
+    "deploy:testnet": "now --local-config ./now.testnet.json"
+  },
+  "dependencies": {
+    "64": "^0.2.0",
+    "bmp-js": "^0.1.0",
+    "fast-png": "^3.1.0",
+    "got": "^8.3.1",
+    "just-pick": "^1.0.3",
+    "just-safe-get": "^1.2.1",
+    "loglevel": "^1.6.1",
+    "micro": "^9.1.4",
+    "mongoose": "^5.0.13",
+    "pretty-hrtime": "^1.0.3",
+    "socket.io": "^1.7.4",
+    "ws": "^5.1.1"
+  },
+  "devDependencies": {
+    "faker": "^4.1.0",
+    "jest": "^22.4.3",
+    "nodemon": "^1.17.2",
+    "request-promise": "^4.2.2",
+    "socket.io-client": "^1.7.4",
+    "test-listen": "^1.1.0"
+  }
+}

@@ -1,0 +1,10 @@
+version: '3.3'
+services:
+  api:
+    volumes:
+      - ./packages/api:/app
+      - /app/node_modules
+  web:
+    volumes:
+      - ./packages/web:/app
+      - /app/node_modules

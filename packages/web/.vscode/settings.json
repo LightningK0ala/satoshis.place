@@ -1,0 +1,16 @@
+{
+  "javascript.implicitProjectConfig.experimentalDecorators": true,
+   /*
+     * Run on save
+     * - prettier-standard
+     */
+     "emeraldwalk.runonsave": {
+      "commands": [
+          {
+              "match": "\\.js$",
+              "isAsync": true,
+              "cmd": "prettier-standard '${file}'"
+          }
+      ]
+  }
+}

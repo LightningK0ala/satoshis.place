@@ -1,0 +1,44 @@
+version: '3.3'
+services:
+  api:
+    restart: always
+    build:
+      context: ./packages/api
+    container_name: api
+    environment:
+      - MAINTENANCE=${MAINTENANCE}
+      - LOG_LEVEL=${LOG_LEVEL}
+      - SIMULATE_PAYMENTS=${SIMULATE_PAYMENTS}
+      - PORT=3001
+      - CHARGE_URI=${CHARGE_URI}
+      - CHARGE_WS_URI=${CHARGE_WS_URI}
+      - CHARGE_AUTH=${CHARGE_AUTH}
+      - MONGO_DB_URI=${MONGO_DB_URI}
+    links:
+      - db
+    ports:
+      - "3001:3001"
+  web:
+    restart: always
+    build:
+      context: ./packages/web
+    container_name: web
+    environment:
+      - MAINTENANCE=${MAINTENANCE}
+      - PORT=3000
+      - LN_NODE_URI=${LN_NODE_URI}
+      - TESTNET=${TESTNET}
+      - GOOGLE_ANALYTICS=${GOOGLE_ANALYTICS}
+      - API_URI=${API_URI}
+    links:
+      - api
+    ports:
+      - "3000:3000"
+  db:
+    restart: always
+    container_name: db
+    image: mongo:3.4.6
+    ports:
+      - 27017:27017
+    volumes:
+      - ~/satoshis-place-db-data:/data/db
