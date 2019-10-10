@@ -34,16 +34,6 @@ If you see a cheeky monkey `Listening on *:3001 🙉` and a bunch of `PING ...` 
 
 You can use the `SIMULATE_PAYMENTS` env setting to automatically execute orders by setting it to `yes` (requires restart of the api). This will allow you to draw on the canvas without having to make a lightning payment.
 
-## Notes on the `.env` file
-
-These are the following strings you are meant to replace:
-- NODE_URI
-- IP_ADDRESS
-- PORT
-- YOUR_PASSWORD
-
-Also, the ports for your lightning node and charge endpoints are hardcoded to `9735` and `9112` respectively. If you need to change these go ahead.
-
 ## Testnet
 
 To use testnet, simply setup your *c-lightning* node to use testnet, update the connection details if required and set the `TESTNET` env setting to `yes`.
