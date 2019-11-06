@@ -22,7 +22,7 @@
     "just-safe-get": "^1.2.1",
     "loglevel": "^1.6.1",
     "micro": "^9.1.4",
-    "mongoose": "^5.0.13",
+    "mongoose": "^5.7.5",
     "pretty-hrtime": "^1.0.3",
     "socket.io": "^1.7.4",
     "ws": "^5.1.1"
