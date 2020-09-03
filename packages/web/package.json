@@ -36,7 +36,7 @@
     "react-konva": "^1.7.1",
     "react-responsive-modal": "^3.0.2",
     "rebass": "^2.0.0-2",
-    "serve": "^6.5.6",
+    "serve": "^10.1.2",
     "socket.io-client": "^1.7.4",
     "store": "^2.0.12",
     "styled-components": "^3.2.6",
