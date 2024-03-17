@@ -5,8 +5,8 @@ RUN mkdir /app
 
 WORKDIR /app
 
-ADD yarn.lock package.json ./
-RUN yarn
+ADD package.json ./
+RUN npm install
 
 ADD . /app
 
