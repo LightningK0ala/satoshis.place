@@ -1,4 +1,4 @@
-const got = require("got");
+const request = require("request-promise");
 
 const mimeType = "application/json";
 
@@ -28,22 +28,20 @@ async function lndFetcher(path, postBody) {
 }
 
 async function lndPoster(path, postBody) {
-  const url = `${API_ENDPOINT}${path}`;
-  const method = postBody ? "POST" : "GET";
-  const init = { method };
-  let headers = {
-    "Grpc-Metadata-Macaroon": MACAROON,
-    Accept: mimeType,
+  let options = {
+    method: "POST",
+    url: `${API_ENDPOINT}${path}`,
+    rejectUnauthorized: false,
+    json: true,
+    headers: {
+      "Grpc-Metadata-macaroon": MACAROON,
+    },
+    form: JSON.stringify(postBody),
   };
-  if (postBody) {
-    init.body = JSON.stringify(postBody);
-    headers = { ...headers, "Content-Type": mimeType };
-  }
-  const { body } = await got.post(url, { ...init, headers });
-  return JSON.parse(body);
+  return request(options);
 }
 
-function lndCreateInvoice(payload) {
+async function lndCreateInvoice(payload) {
   return lndPoster("/v1/invoices", payload);
 }
 
