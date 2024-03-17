@@ -10,9 +10,8 @@ services:
       - LOG_LEVEL=${LOG_LEVEL}
       - SIMULATE_PAYMENTS=${SIMULATE_PAYMENTS}
       - PORT=3001
-      - CHARGE_URI=${CHARGE_URI}
-      - CHARGE_WS_URI=${CHARGE_WS_URI}
-      - CHARGE_AUTH=${CHARGE_AUTH}
+      - LND_MACAROON=${LND_MACAROON}
+      - LND_API_ENDPOINT=${LND_API_ENDPOINT}
       - MONGO_DB_URI=${MONGO_DB_URI}
     links:
       - db
@@ -37,7 +36,7 @@ services:
   db:
     restart: always
     container_name: db
-    image: mongo:3.4.6
+    image: mongo:latest
     ports:
       - 27017:27017
     volumes:
