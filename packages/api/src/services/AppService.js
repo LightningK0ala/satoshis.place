@@ -103,7 +103,7 @@ class AppService extends EventEmitter {
   async init(ServerService) {
     try {
       // Init services we used in application (prevents circular dependency)
-      // LightningService.init(this)
+      LightningService.init(this);
       // Setup WebSockets
       WebsocketService.init(ServerService, this);
       // Init listeners
@@ -323,7 +323,6 @@ class AppService extends EventEmitter {
         settings
       );
       log.info("Requesting a new invoice from the Lightning Service OK");
-
       if (paymentRequest) {
         this.emit(EVENTS.NEW_INVOICE_RESULT, { data, paymentRequest }, sid);
       } else {

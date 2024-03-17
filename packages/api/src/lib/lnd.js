@@ -1,50 +1,37 @@
-const request = require("request-promise");
-
-const mimeType = "application/json";
+const request = require("request");
+const requestPromise = require("request-promise");
 
 const MACAROON = process.env.LND_MACAROON;
 const API_ENDPOINT = process.env.LND_API_ENDPOINT;
-
-async function lndFetcher(path, postBody) {
-  const url = `${API_ENDPOINT}${path}`;
-  const method = postBody ? "POST" : "GET";
-  const init = { method };
-  let headers = {
-    "Grpc-Metadata-Macaroon": MACAROON,
-    Accept: mimeType,
-  };
-  if (postBody) {
-    init.body = JSON.stringify(postBody);
-    headers = { ...headers, "Content-Type": mimeType };
-  }
-  const result = await got(url, { ...init, headers });
-  const data = await result.json().catch();
-  if (!result.ok) {
-    throw new Error(
-      data ? data.message : result.statusText || `${path} 😱 ${result.status}`
-    );
-  }
-  return data;
-}
+const REQUEST_OPTS = {
+  rejectUnauthorized: false,
+  json: true,
+  headers: {
+    "Grpc-Metadata-macaroon": MACAROON,
+  },
+};
 
 async function lndPoster(path, postBody) {
-  let options = {
-    method: "POST",
+  return requestPromise({
+    ...REQUEST_OPTS,
     url: `${API_ENDPOINT}${path}`,
-    rejectUnauthorized: false,
-    json: true,
-    headers: {
-      "Grpc-Metadata-macaroon": MACAROON,
-    },
+    method: "POST",
     form: JSON.stringify(postBody),
-  };
-  return request(options);
+  });
 }
 
 async function lndCreateInvoice(payload) {
   return lndPoster("/v1/invoices", payload);
 }
 
+async function lndSubscribeInvoices(cb) {
+  request.get(
+    { ...REQUEST_OPTS, url: `${API_ENDPOINT}/v1/invoices/subscribe` },
+    cb
+  );
+}
+
 module.exports = {
   lndCreateInvoice,
+  lndSubscribeInvoices,
 };

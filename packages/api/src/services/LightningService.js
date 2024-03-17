@@ -16,22 +16,38 @@ let isAlive;
 const setupListeners = (AppService) => {
   // TODO: Change this
   log.info("Connecting charge websocket");
-  const ws = new WebSocket(process.env.CHARGE_WS_URI);
+  const endpoint = process.env.LND_API_ENDPOINT;
+  const ws = new WebSocket(
+    `wss://${endpoint.replace(
+      /^[^:]+:\/\//,
+      ""
+    )}/v1/invoices/subscribe?method=GET`,
+    {
+      rejectUnauthorized: false,
+      headers: {
+        "Grpc-Metadata-Macaroon": process.env.LND_MACAROON,
+      },
+    }
+  );
   ws.on("open", () => {
+    ws.send(JSON.stringify({}));
     log.info("Connecting charge websocket OK");
     // Message listener callback
     ws.addEventListener("message", (msg) => {
-      // Parse invoice into js object
-      const inv = JSON.parse(msg.data);
+      // Parse data
+      const { result: data } = JSON.parse(msg.data);
       // Check if a payment has been made
-      if (inv && inv.status === "paid" && inv.payreq) {
+      if (data && data.settled && data.payment_request) {
         log.info("Payment received 🤑");
         // Proxy through the payment event to AppService
-        AppService.emit(AppService.event.PAYMENT_RECEIVED, inv.payreq);
+        AppService.emit(
+          AppService.event.PAYMENT_RECEIVED,
+          data.payment_request
+        );
       } else {
         log.info(
           `Message received from lightning charge but it's not a successful payment`,
-          inv
+          data.payment_request
         );
       }
     });
@@ -122,7 +138,7 @@ module.exports = {
    */
   newInvoice: async (pixelCount, settings) => {
     try {
-      const value = pixelCount * settings.pricePerPixel * 1000;
+      const value = pixelCount * settings.pricePerPixel;
       const memo = `Payment for ${pixelCount} pixels at satoshis.place.`;
       const expiry = settings.invoiceExpiry;
       const { payment_request } = await lndCreateInvoice({
