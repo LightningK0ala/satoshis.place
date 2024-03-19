@@ -36,8 +36,11 @@ services:
   db:
     restart: always
     container_name: db
-    image: mongo:latest
+    image: mongo:3.7.9
     ports:
       - 27017:27017
     volumes:
       - ~/satoshis-place-db-data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_DB_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_DB_PWD}
