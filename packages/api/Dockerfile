@@ -6,10 +6,10 @@ RUN mkdir -p /app
 WORKDIR /app
 
 # Add lock file and package.json
-ADD yarn.lock package.json ./
+ADD package.json ./
 
 # Install dependencies
-RUN yarn
+RUN npm i
 
 # Copy app source
 ADD . /app

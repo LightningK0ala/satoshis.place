@@ -64,9 +64,10 @@ export default class Counter extends React.Component {
     logPageView()
     // Developer message
     console.log('')
-    console.log('--------------------------------------------------------------')
-    console.log('A game by Lightning K0ala - https://twitter.com/LightningK0ala')
-    console.log('--------------------------------------------------------------')
+    console.log('-------------------------------------------------------------------')
+    console.log('Made with ⚡️ by Lightning K0ala - https://twitter.com/LightningK0ala')
+    console.log('Source code: https://github.com/LightningK0ala/satoshis.place')
+    console.log('-------------------------------------------------------------------')
     console.log('')
   }
 

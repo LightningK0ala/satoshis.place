@@ -2,9 +2,9 @@
 
 <img src="https://i.imgur.com/XUo6fAX.jpg" width="696"/>
 
-This is the official repository containing the source code for [satoshis.place](satoshis.place). 
+This is the official repository containing the source code for [satoshis.place](satoshis.place).
 
-Satoshi's place is a Lightning Network Application (LApp) launched in May 2018 with the purpose of showcasing the viability of running a service that accepts instant, permissionless, near-free microtransactions through Bitcoin's Lightning Network. 
+Satoshi's place is a Lightning Network Application (LApp) launched in May 2018 with the purpose of showcasing the viability of running a service that accepts instant, permissionless, near-free microtransactions through Bitcoin's Lightning Network.
 
 It consists of a collaborative art board where each pixel costs 1 satoshi to paint. Pixels can be drawn over an unlimited amount of times.
 
@@ -14,9 +14,9 @@ It's up to you. You can learn from it, hack it, extend it, run your own version 
 
 ## Preparation
 
-You'll need an instance of *c-lightning* with *lightning-charge* setup somewhere you can access. Follow the c-lightning instructions [here](https://github.com/ElementsProject/lightning) and the lightning charge instructions [here](https://github.com/ElementsProject/lightning-charge).
+You'll need an instance of _c-lightning_ with _lightning-charge_ setup somewhere you can access. Follow the c-lightning instructions [here](https://github.com/ElementsProject/lightning) and the lightning charge instructions [here](https://github.com/ElementsProject/lightning-charge).
 
-In order to setup the database for satoshis-place, you'll need *mongo-tools* installed in your system, if you're on linux (debian) use `sudo apt install mongo-tools`, if Mac or otherwise follow [these](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/) instructions.
+In order to setup the database for satoshis-place, you'll need _mongo-tools_ installed in your system, if you're on linux (debian) use `sudo apt install mongo-tools`, if Mac or otherwise follow [these](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/) instructions.
 
 You also need docker installed in your system. Follow [these](https://docs.docker.com/install/) instructions.
 
@@ -25,7 +25,7 @@ You also need docker installed in your system. Follow [these](https://docs.docke
 1. Clone the repository and run `cd satoshis.place`.
 2. Enter connection details in `.env` (see `.env.sample` for a template).
 3. Run `docker-compose up -d`.
-4. Run `sh scripts/bootstrap.sh`.
+4. Initialize the database by running `docker-compose exec db sh` then `mongorestore /db-init`.
 5. Open the application in `http://localhost:3000`.
 
 You might need to wait a couple of seconds for the application to build before the webpage shows.
@@ -36,7 +36,7 @@ You can use the `SIMULATE_PAYMENTS` env setting to automatically execute orders 
 
 ## Testnet
 
-To use testnet, simply setup your *c-lightning* node to use testnet, update the connection details if required and set the `TESTNET` env setting to `yes`.
+To use testnet, simply setup your _c-lightning_ node to use testnet, update the connection details if required and set the `TESTNET` env setting to `yes`.
 
 ## API
 
@@ -45,4 +45,3 @@ The API for this application is also exposed and can be interacted with directly
 ## Questions?
 
 Any questions or suggestions feel free to open an issue in this repository or reach out to me via twitter at [@LightningK0ala](https://twitter.com/LightningK0ala).
-

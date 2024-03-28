@@ -1,5 +1,8 @@
-version: '3.3'
+version: "3.3"
 services:
+  db:
+    volumes:
+      - ./db-init:/db-init
   api:
     volumes:
       - ./packages/api:/app
